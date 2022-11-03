@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
 
 import { ArticlesRoutingModule } from './articles-routing.module';
 import { ArticlesComponent } from './articles/articles.component';
@@ -12,8 +11,7 @@ import { ArticlesComponent } from './articles/articles.component';
   ],
   imports: [
     CommonModule,
-    ArticlesRoutingModule,
-    HttpClientModule
+    ArticlesRoutingModule
   ]
 })
 export class ArticlesModule { }
