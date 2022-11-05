@@ -1,0 +1,5 @@
+.devantImg {
+    z-index: 2;
+    position: absolute;
+    color: red;
+}
