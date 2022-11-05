@@ -1,14 +1,26 @@
 <h3 class="my-3">Création d'un nouvel Article</h3>
 <form [formGroup]="articleForm" (ngSubmit)="onSubmit()">
     <div class="mb-3">
-        <label for="titre" class="form-label">Titre de l'article</label>
-        <input type="text" formControlName="title" class="form-control" id="titre" placeholder="La vie en montagne">
+        <label for="titre" class="form-label">Titre de l'article *</label>
+        <input type="text" formControlName="title" class="form-control" id="titre" placeholder="La vie en montagne"
+            required>
+
+        <div *ngIf="title?.invalid && (title?.dirty || title?.touched)" class="alert alert-danger">Le titre est requis
+        </div>
     </div>
 
     <div class="mb-3">
-        <label for="contenu" class="form-label">Contenu</label>
-        <textarea rows="5" formControlName="content" class="form-control" id="contenu" placeholder="Bla bla bla...">
+        <label for="contenu" class="form-label">Contenu *</label>
+        <textarea rows="5" formControlName="content" class="form-control" id="contenu" placeholder="Bla bla bla..."
+            required>
         </textarea>
+        <div *ngIf="content?.invalid && (content?.dirty || content?.touched)" class="alert alert-danger">
+            <span *ngIf="content?.errors?.['required']">Un contenu est nécessaire</span>
+            <span *ngIf="content?.errors?.['minlength']">Le texte doit contenir au moins
+                {{content?.errors?.['minlength']?.requiredLength}} caractères
+                ({{content?.errors?.['minlength']?.actualLength}}/{{content?.errors?.['minlength']?.requiredLength}})
+            </span>
+        </div>
     </div>
-    <button type="submit" class="btn btn-primary">Valider</button>
+    <button type="submit" class="btn btn-primary" [disabled]="articleForm.invalid">Valider</button>
 </form>
