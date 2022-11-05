@@ -1,4 +1,6 @@
 <h3 class="my-3">Création d'un nouvel Article</h3>
+<div *ngIf="(response$|async) as reponseServe">{{reponseServe |json}}</div>
+<div *ngIf="erreurPourInfo" class="alert alert-danger text-center">Une erreur est survenue</div>
 <form [formGroup]="articleForm" (ngSubmit)="onSubmit()">
     <div class="mb-3">
         <label for="titre" class="form-label">Titre de l'article *</label>

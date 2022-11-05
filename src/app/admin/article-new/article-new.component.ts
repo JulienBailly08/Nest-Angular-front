@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { catchError, EMPTY, tap } from 'rxjs';
 import { ArticleService } from '../article.service';
 
 @Component({
@@ -10,7 +10,8 @@ import { ArticleService } from '../article.service';
   styleUrls: ['./article-new.component.css']
 })
 export class ArticleNewComponent implements OnInit {
-  response$: any;
+  response$:any;
+  erreurPourInfo = null;
 
   constructor(private fb: FormBuilder, private articleService:ArticleService, private router:Router) { }
 
@@ -23,9 +24,22 @@ export class ArticleNewComponent implements OnInit {
   }
 
   onSubmit() {
-    this.response$ = this.articleService.createArticle(this.articleForm.value).subscribe();
-    this.articleForm.reset();
-    this.router.navigateByUrl('/articles');
+    //subscribe gérer dans le template avec | async
+    this.response$ = this.articleService
+      .createArticle(this.articleForm.value)
+      .pipe(
+        catchError(errorPotentielle => {
+          this.erreurPourInfo = errorPotentielle;
+          // empty renvoi un observable vide qui passe automatiquement à next()
+          return EMPTY;
+        }),
+        tap((res) =>{
+          if (res._id) {
+            this.articleForm.reset();
+            this.router.navigateByUrl('/articles');
+          }
+        })
+      );
   }
 
   get title() {
