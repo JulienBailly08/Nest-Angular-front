@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ArticleService } from '../article.service';
 
@@ -11,7 +12,7 @@ import { ArticleService } from '../article.service';
 export class ArticleNewComponent implements OnInit {
   response$: any;
 
-  constructor(private fb: FormBuilder, private articleService:ArticleService) { }
+  constructor(private fb: FormBuilder, private articleService:ArticleService, private router:Router) { }
 
   articleForm: FormGroup = this.fb.group({
     title: ['',Validators.required],
@@ -21,8 +22,10 @@ export class ArticleNewComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  async onSubmit() {
-    this.response$ = await this.articleService.createArticle(this.articleForm.value).subscribe();
+  onSubmit() {
+    this.response$ = this.articleService.createArticle(this.articleForm.value).subscribe();
+    this.articleForm.reset();
+    this.router.navigateByUrl('/articles');
   }
 
   get title() {
