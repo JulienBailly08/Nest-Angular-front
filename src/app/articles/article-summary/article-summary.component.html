@@ -1,16 +1,21 @@
-<a href="" class="link col my-3 card" style="width: 18rem;">
-    <span class="devantImg" *ngIf="article.createdAt!=article.updatedAt">Mise à jour le
-        {{article.updatedAt|date:'shortDate'}} à {{article.updatedAt|date:'H:mm'}}</span>
-    <img class="card-img-top" loading="lazy" src="https://picsum.photos/id/{{idPicsum}}/200" alt="Card image cap">
-    <div class="card-body">
-        <h5 class="card-title">{{article.title}}</h5>
-        <p class="card-text">{{article.content}}</p>
-    </div>
-    <div class="card-footer d-flex justify-content-between ">
-        <p class="my-3">Crée le {{article.createdAt | date}}</p>
-        <p class="my-3">{{article.author}}</p>
-    </div>
-    <div class="d-flex justify-content-end">
-        <a href="#" class="btn btn-danger"><i class="bi bi-trash"></i></a>
-    </div>
-</a>
+<div class="col my-3 card" style="width: 18rem;">
+    <a href="" class="link">
+        <span class="devantImg" *ngIf="article.createdAt!=article.updatedAt">Mise à jour le
+            {{article.updatedAt|date:'shortDate'}} à {{article.updatedAt|date:'H:mm'}}</span>
+        <img class="card-img-top" loading="lazy" src="https://picsum.photos/id/{{idPicsum}}/200" alt="Card image cap">
+        <div class="card-body">
+            <h5 class="card-title">{{article.title}}</h5>
+            <p class="card-text">{{article.content}}</p>
+        </div>
+        <div class="card-footer d-flex justify-content-between ">
+            <p class="my-3">Crée le {{article.createdAt | date}}</p>
+            <p class="my-3">{{article.author}}</p>
+        </div>
+    </a>
+
+    <button class="btn btn-danger" [disabled]="isWaitingForServerResponse" (click)="effacerArticle()">
+        <i class="bi bi-trash"></i>
+    </button>
+    <span *ngIf="isWaitingForServerResponse">Suppression en cours</span>
+    <div *ngIf="error">Erreur merci de recharger la page</div>
+</div>

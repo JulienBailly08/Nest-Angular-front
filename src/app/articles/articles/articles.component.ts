@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { ArticleService } from 'src/app/admin/article.service';
 
 @Component({
   selector: 'app-articles',
@@ -10,10 +10,21 @@ import { Observable } from 'rxjs';
 export class ArticlesComponent implements OnInit {
   articles$: Observable<any[]> | undefined ;
 
-  constructor(private httpClient:HttpClient) { }
+  constructor(private articleService:ArticleService) { }
 
   ngOnInit(): void {
-    this.articles$ = this.httpClient.get<any[]>('http://localhost:3000/articles');
+    this.chargerArticles();
+  }
+
+  chargerArticles()
+  {
+    this.articles$ = this.articleService.getArticles();
+  }
+
+  reloadArticle(_id: string) {
+    // @todo
+    // cibler l'enfant avec l'_id => le faire disparaitre avec classe puis recharger la requete get
+    this.chargerArticles();
   }
 
 }
