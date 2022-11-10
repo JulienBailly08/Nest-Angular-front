@@ -2,16 +2,29 @@ import { Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
 import { catchError, EMPTY, throwError } from 'rxjs';
 import { ArticleService } from 'src/app/admin/article.service';
 import { Article } from 'src/app/models/article';
+import { animate, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-article-summary',
   templateUrl: './article-summary.component.html',
-  styleUrls: ['./article-summary.component.css']
+  styleUrls: ['./article-summary.component.css'],
+  animations: [
+    trigger('fade', [
+      // transition('void => active', [ // using status here for transition
+      //   style({ opacity: 0 }),
+      //   animate(1000, style({ opacity: 1 }))
+      // ]),
+      transition('false => true', [
+        animate(1000, style({ opacity: 0 }))
+      ])
+    ])
+  ]
 })
 export class ArticleSummaryComponent implements OnInit {
 
   isWaitingForServerResponse = false;
   error = null;
+  isDelete = false;
   @Output() deleteSucess = new EventEmitter<string>();
   @Input() article: Article
 
@@ -24,7 +37,7 @@ export class ArticleSummaryComponent implements OnInit {
       author:''
     }
 
-    this.idPicsum = Math.floor(Math.random() * 300)
+    this.idPicsum = Math.floor(Math.random() * 150)
   }
   donothing() {
     
@@ -54,7 +67,10 @@ export class ArticleSummaryComponent implements OnInit {
   }
   supressionOK(data: Article)
   {
-    this.deleteSucess.emit(data._id);
+    this.isDelete = true;
+    setTimeout(() => {
+      this.deleteSucess.emit(data._id);
+    }, 1000);
   }
 
   ngOnInit(): void {

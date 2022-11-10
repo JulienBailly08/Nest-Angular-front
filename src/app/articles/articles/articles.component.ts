@@ -7,6 +7,7 @@ import { ArticleService } from 'src/app/admin/article.service';
   templateUrl: './articles.component.html',
   styleUrls: ['./articles.component.css']
 })
+
 export class ArticlesComponent implements OnInit {
   articles$: Observable<any[]> | undefined ;
 
