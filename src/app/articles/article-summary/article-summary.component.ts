@@ -25,6 +25,7 @@ export class ArticleSummaryComponent implements OnInit {
   isWaitingForServerResponse = false;
   error = null;
   isDelete = false;
+  animationDone = false;
   @Output() deleteSucess = new EventEmitter<string>();
   @Input() article: Article
 
@@ -69,8 +70,11 @@ export class ArticleSummaryComponent implements OnInit {
   {
     this.isDelete = true;
     setTimeout(() => {
-      this.deleteSucess.emit(data._id);
+      this.animationDone = true;
     }, 1000);
+    setTimeout(() => {
+      this.deleteSucess.emit(data._id);
+    }, 2000);
   }
 
   ngOnInit(): void {

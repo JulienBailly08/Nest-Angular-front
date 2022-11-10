@@ -1,4 +1,4 @@
-<div class="col my-3 card" style="width: 18rem;" [@fade]="this.isDelete">
+<div class="col my-3 card" style="width: 18rem;" [@fade]="this.isDelete" [ngClass]="{'disparition':this.animationDone}">
     <a href="" class="link">
         <span class="devantImg" *ngIf="article.createdAt!=article.updatedAt">Mise à jour le
             {{article.updatedAt|date:'shortDate'}} à {{article.updatedAt|date:'H:mm'}}</span>

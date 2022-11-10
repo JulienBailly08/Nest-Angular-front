@@ -8,3 +8,7 @@
     text-decoration: none;
     color: black;
 }
+
+.disparition {
+    display: none;
+}
