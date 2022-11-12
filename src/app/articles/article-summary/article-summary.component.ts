@@ -26,7 +26,9 @@ export class ArticleSummaryComponent implements OnInit {
   error = null;
   isDelete = false;
   animationDone = false;
+  isInEditMode = false;
   @Output() deleteSucess = new EventEmitter<string>();
+  @Output() update = new EventEmitter();
   @Input() article: Article
 
   idPicsum:number
@@ -73,11 +75,17 @@ export class ArticleSummaryComponent implements OnInit {
       this.animationDone = true;
     }, 1000);
     setTimeout(() => {
-      this.deleteSucess.emit(data._id);
+      this.deleteSucess.emit();
     }, 2000);
   }
-
+  goEdit() {
+    this.isInEditMode = !this.isInEditMode;
+}
   ngOnInit(): void {
+  }
+  remonterVersParent()
+  {
+    this.update.emit();
   }
 
 }

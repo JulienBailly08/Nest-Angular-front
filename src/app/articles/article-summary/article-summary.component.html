@@ -1,6 +1,7 @@
-<div class="col my-3 card" style="width: 18rem;" [@fade]="this.isDelete" [ngClass]="{'disparition':this.animationDone}">
+<div class="col my-3 card" style="width: 18rem;" [@fade]="this.isDelete" [ngClass]="{'disparition':this.animationDone}"
+    [hidden]="isInEditMode">
     <a href="" class="link">
-        <span class="devantImg" *ngIf="article.createdAt!=article.updatedAt">Mise à jour le
+        <span class="devantImg" *ngIf="article.createdAt!=article.updatedAt">Mis à jour le
             {{article.updatedAt|date:'shortDate'}} à {{article.updatedAt|date:'H:mm'}}</span>
         <img class="card-img-top" loading="lazy" src="https://picsum.photos/id/{{idPicsum}}/200" alt="Card image cap">
         <div class="card-body">
@@ -12,10 +13,23 @@
             <p class="my-3">{{article.author}}</p>
         </div>
     </a>
-    <button class="btn btn-danger" [disabled]="isWaitingForServerResponse" (click)="effacerArticle()">
-        <i class="bi bi-trash"></i>
-    </button>
-
+    <div class="d-flex">
+        <button class="col btn btn-outline-secondary" (click)="goEdit()">
+            <i class="bi bi-pencil-square"></i>
+        </button>
+        <button class="col btn btn-outline-danger" [disabled]="isWaitingForServerResponse" (click)="effacerArticle()">
+            <i class="bi bi-trash"></i>
+        </button>
+    </div>
     <span *ngIf="isWaitingForServerResponse">Suppression en cours</span>
     <div *ngIf="error">Erreur merci de recharger la page</div>
+</div>
+
+<div class="col my-3" [hidden]="!isInEditMode">
+    <app-article-edit [article4Form]="article" (updateSucess)="remonterVersParent()"></app-article-edit>
+    <div class="row">
+        <button class="col btn btn-outline-secondary" (click)="goEdit()">
+            <i class="bi bi-arrow-90deg-up"></i>
+        </button>
+    </div>
 </div>

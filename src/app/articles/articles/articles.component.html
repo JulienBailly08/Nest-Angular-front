@@ -1,7 +1,7 @@
 <div *ngIf="articles$" class="mt-5">
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
         <app-article-summary *ngFor="let article of articles$ |async" [article]="article"
-            (deleteSucess)="reloadArticle($event)">
+            (deleteSucess)="reloadArticle($event)" (update)="reloadPage()">
         </app-article-summary>
     </div>
 </div>

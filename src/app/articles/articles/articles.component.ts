@@ -21,10 +21,11 @@ export class ArticlesComponent implements OnInit {
   {
     this.articles$ = this.articleService.getArticles();
   }
+  reloadPage() {
+    this.chargerArticles();
+  }
 
   reloadArticle(_id: string) {
-    // @todo
-    // cibler l'enfant avec l'_id => le faire disparaitre avec classe puis recharger la requete get
     this.chargerArticles();
   }
 

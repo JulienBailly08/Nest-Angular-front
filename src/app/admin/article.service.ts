@@ -28,4 +28,9 @@ export class ArticleService {
   {
     return this.httpClient.delete<Article>(`${baseURL}/${article._id}`);
   }
+
+  updateArticle(article: Article)
+  {
+    return this.httpClient.put<Article>(`${baseURL}/${article._id}`,article,this.httpHeaders);
+  }
 }
