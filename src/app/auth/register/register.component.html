@@ -1,1 +1,26 @@
-<p>register works!</p>
+<h3 class="my-3">Création d'un nouvel utilisateur</h3>
+<div *ngIf="(retourServ$|async) as reponseServe" class="alert alert-succes ">
+    <span *ngIf="reponseServe._id">Utilisateur créer avec Succès</span>
+</div>
+<form action="" [formGroup]="registerForm" (ngSubmit)="submit()">
+    <div class="form-group mb-3">
+        <label for="email" class="form-label">Email *</label>
+        <input type="email" formControlName="email" id="email" class="form-control" required
+            placeholder="cassou@lilo.org">
+        <div *ngIf="email?.invalid && (email?.dirty || email?.touched)" class="alert alert-danger">
+            <span>Champs obligatoire</span>
+        </div>
+    </div>
+    <div class="form-group mb-3">
+        <label for="password" class="form-label">Mot de passe</label>
+        <input type="password" formControlName="password" id="password" class="form-control" required>
+        <div *ngIf="password?.invalid && (password?.dirty || password?.touched)" class="alert alert-danger">
+            <span *ngIf="password?.errors?.['required']">Un mot de passe est requis</span>
+            <span *ngIf="password?.errors?.['minlength']">Le mot de passe doit contenir au moins
+                {{password?.errors?.['minlength']?.requiredLength}} caractères
+                ({{password?.errors?.['minlength']?.actualLength}}/{{password?.errors?.['minlength']?.requiredLength}})
+            </span>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary" [disabled]="registerForm.invalid">Créer</button>
+</form>
