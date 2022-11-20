@@ -1,6 +1,6 @@
 <div class="col my-3 card" style="width: 18rem;" [@fade]="this.isDelete" [ngClass]="{'disparition':this.animationDone}"
     [hidden]="isInEditMode">
-    <a href="" class="link">
+    <a href="#" class="link">
         <span class="devantImg" *ngIf="article.createdAt!=article.updatedAt">Mis à jour le
             {{article.updatedAt|date:'shortDate'}} à {{article.updatedAt|date:'H:mm'}}</span>
         <img class="card-img-top" loading="lazy" src="https://picsum.photos/id/{{idPicsum}}/200" alt="Card image cap">
@@ -13,7 +13,7 @@
             <p class="my-3">{{article.author}}</p>
         </div>
     </a>
-    <div class="d-flex">
+    <div *ngIf="isAdmin" class="d-flex">
         <button class="col btn btn-outline-secondary" (click)="goEdit()">
             <i class="bi bi-pencil-square"></i>
         </button>

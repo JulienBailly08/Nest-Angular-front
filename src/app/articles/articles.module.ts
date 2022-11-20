@@ -5,6 +5,7 @@ import { ArticlesRoutingModule } from './articles-routing.module';
 import { ArticlesComponent } from './articles/articles.component';
 import { ArticleSummaryComponent } from './article-summary/article-summary.component';
 import { AdminModule } from '../admin/admin.module';
+import { AuthModule } from '../auth/auth.module';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { AdminModule } from '../admin/admin.module';
   imports: [
     CommonModule,
     ArticlesRoutingModule,
-    AdminModule
+    AdminModule,
+    AuthModule
   ]
 })
 export class ArticlesModule { }

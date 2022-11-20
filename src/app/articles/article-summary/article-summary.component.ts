@@ -3,6 +3,7 @@ import { catchError, EMPTY, throwError } from 'rxjs';
 import { ArticleService } from 'src/app/admin/article.service';
 import { Article } from 'src/app/models/article';
 import { animate, style, transition, trigger } from '@angular/animations';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-article-summary',
@@ -27,13 +28,14 @@ export class ArticleSummaryComponent implements OnInit {
   isDelete = false;
   animationDone = false;
   isInEditMode = false;
+  isAdmin = false;
   @Output() deleteSucess = new EventEmitter<string>();
   @Output() update = new EventEmitter();
   @Input() article: Article
 
   idPicsum:number
 
-  constructor(private articleService:ArticleService) { 
+  constructor(private articleService:ArticleService, private authService:AuthService) { 
     this.article = {
       title: '',
       content: '',
@@ -42,9 +44,7 @@ export class ArticleSummaryComponent implements OnInit {
 
     this.idPicsum = Math.floor(Math.random() * 150)
   }
-  donothing() {
-    
-  }
+
   effacerArticle()
   {
     this.isWaitingForServerResponse = true
@@ -82,6 +82,7 @@ export class ArticleSummaryComponent implements OnInit {
     this.isInEditMode = !this.isInEditMode;
 }
   ngOnInit(): void {
+    this.isAdmin = this.authService.isAdmin;
   }
   remonterVersParent()
   {
