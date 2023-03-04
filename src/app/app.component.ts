@@ -19,5 +19,6 @@ export class AppComponent {
 
   logOut() {
     localStorage.removeItem('cms-angular-token');
+    window.location.reload();
   }
 }

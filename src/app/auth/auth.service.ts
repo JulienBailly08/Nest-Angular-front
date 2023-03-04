@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable, Output } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { baseURL } from 'src/environments/environment';
 import { User } from '../models/user';
@@ -15,6 +15,7 @@ export class AuthService {
     })
   }
 
+  @Output() loginDown = new EventEmitter();
   private token!: string | null;
 
   constructor(private httpClient: HttpClient, private router :Router) { 
