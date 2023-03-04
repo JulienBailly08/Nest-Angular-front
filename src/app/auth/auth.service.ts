@@ -42,24 +42,26 @@ export class AuthService {
   }
 
   get isActivToken() {
-    if (!this.token) {
-      return false;
-    }
-    if (Date.now() <= this.decoderPayloadToken(this.token).exp*1000) {
-      return true;
-    } else {
-      return false;
-    } 
+    // if (!this.token) {
+    //   return false;
+    // }
+    // if (Date.now() <= this.decoderPayloadToken(this.token).exp*1000) {
+    //   return true;
+    // } else {
+    //   return false;
+    // } 
+    return true;
   }
 
   get isAdmin() {
-    if (!this.token) {
-      return false;
-    }
-    if (this.decoderPayloadToken(this.token).role === 'admin') {
-      return true;
-    } else {
-      return false;
-    } 
+    // if (!this.token) {
+    //   return false;
+    // }
+    // if (this.decoderPayloadToken(this.token).role === 'admin') {
+    //   return true;
+    // } else {
+    //   return false;
+    // } 
+    return true;
   }
 }
